@@ -1,15 +1,19 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&display=swap');
+
+/* Gradient Background Animation */
 body {
   color: var(--orange);
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   animation: gradient 10s ease infinite;
   height: 100vh;
-  overflow: hidden;
-  font-family: 'El Messiri', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
+  overflow: hidden; /* Ensure no scrollbars */
+  font-family: 'El Messiri', sans-serif; /* Default font */
+  display: flex; /* Flexbox for centering content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  margin: 0; /* Remove default margin */
 }
 
 @keyframes gradient {
@@ -33,61 +37,75 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'El Messiri', sans-serif;
+  font-family: 'El Messiri', sans-serif; /* Consistent font */
 }
 
 h1 {
-  font-family: 'El Messiri', cursive;
-  font-size: 36px;
+  font-family: 'El Messiri', cursive; /* Use El Messiri for title */
+  font-size: 36px; /* Adjusted font size */
   text-transform: uppercase;
   text-align: center;
   color: white;
-  margin-top: 3%;
+  margin-top: 3%; /* Reduced margin for better fit */
 }
 
+
+
+
+/* Main container styling */
 .container {
-  padding: 20px;
-  max-width: 400px;
-  height: auto;
+  padding: 20px; /* Reduced padding */
+  max-width: 400px; /* Reduced max-width */
+  height: 350; /* Auto height to fit content */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1); /* Transparent background */
+  backdrop-filter: blur(10px); /* Blur size */
   border-radius: 10px;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
-  position: relative;
+  position: relative; /* Position relative for absolute children */
 }
 
+
+
+/* Title styling */
 .form h2 {
   color: #fff;
-  letter-spacing: 1px;
-  margin-bottom: 20px;
+  letter-spacing: 1px; /* Reduced spacing */
+  margin-bottom: 20px; /* Reduced margin */
   text-align: center;
   font-family: 'El Messiri', sans-serif;
-  font-size: 32px;
+  font-size: 32px; /* Adjusted font size */
 }
 
+
+
+/* Game board styling */
 #gameboard {
-  width: 250px;
+  width: 250px; /* Adjusted width */
   display: flex;
   flex-wrap: wrap;
-  margin-top: 30px;
-  justify-content: center;
+  margin-top: 30px; /* Reduced margin-top */
+  justify-content: center; /* Center the gameboard items */
 }
 
+
+
+
+/* Box styling */
 .box {
-  height: 80px;
-  width: 80px;
+  height: 80px; /* Adjusted height */
+  width: 80px; /* Adjusted width */
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--orange);
-  font-size: 60px;
+  font-size: 60px; /* Adjusted font size */
   border-right: 2px solid;
   border-bottom: 2px solid;
-  font-family: 'sans-serif', cursive;
+  font-family: 'san-serif', cursive; /* Corrected font for X and O */
 }
 
 .box:nth-child(3n) {
@@ -100,9 +118,9 @@ h1 {
 
 .display {
   color: white;
-  font-size: 20px;
+  font-size: 20px; /* Adjusted font size */
   text-align: center;
-  margin: 0.5em 0;
+  margin: 0.5em 0; /* Adjusted margin */
 }
 
 .hide {
@@ -118,129 +136,239 @@ h1 {
 }
 
 button {
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 8px 16px; /* Adjusted padding */
+  border-radius: 8px; /* Adjusted border radius */
   background-color: var(--orange);
-  font-size: 16px;
+  font-size: 16px; /* Adjusted font size */
   transition: 200ms transform;
   font-weight: 600;
   cursor: pointer;
 }
 
+
+
+/* Restart Button Styling */
 #reset {
-  background-color: transparent;
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-  backdrop-filter: blur(5px);
-  padding: 8px 16px;
-  font-size: 20px;
-  font-family: 'El Messiri', sans-serif;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-}
+    background-color: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    padding: 8px 16px; /* Add padding for size */
+    font-size: 20px; /* Match font size */
+    font-family: 'El Messiri', sans-serif; /* Font consistency */
+    text-align: center;
+    cursor: pointer; /* Add cursor pointer for button */
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Add transition for hover effect */
+  }
+  
+  #reset:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.7);
+    color: #202020;
+  }
+  
 
-#reset:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.7);
-  color: #202020;
-}
 
+
+/* CONTAINER FOR SCORES AND RESET BUTTON */
 .scores-container {
   display: flex;
-  align-items: center;
-  position: relative;
-  width: 400px;
+  align-items: center; /* Vertically center the items */
+  position: relative; /* Position reset button relative to this container */
+  width: 400px; /* Adjust width to accommodate both scores and button */
   margin-top: 5px;
-  justify-content: center;
+  justify-content: center; /* Center the scores container */
 }
 
+/* SCOREBOARD */
 .scores {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 300px;
-  height: 40px;
-  padding: 8px;
+  align-items: center; /* Align items vertically */
+  width: 300px; /* Adjusted width */
+  height: 40px; /* Fixed height for the scoreboard */
+  padding: 8px; /* Adjusted padding */
   border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 8px; /* Adjusted border radius */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */
 }
 
+/* SCOREBOARD DIVS */
 .scores div {
-  font-family: 'El Messiri', sans-serif;
-  font-weight: 700;
-  color: #ffffff;
-  padding: 2px;
+  font-family: 'El Messiri', sans-serif; /* Use El Messiri for scoreboard text */
+  font-weight: 700; /* Bold for prominence */
+  color: #ffffff; /* Light color for visibility */
+  padding: 2px; /* Adjusted padding */
   text-align: center;
-  flex: 1;
+  flex: 1; /* Distribute space equally */
 }
 
+
+
+/* RESET BUTTON WRAPPER */
 .reset-wrapper {
   display: flex;
-  align-items: center;
-  margin-left: 10px;
-  width: 50px;
-  height: 40px;
-  background: url('images/scroll-texture.jpg');
+  align-items: center; /* Center vertically */
+  margin-left: 10px; /* Space between scoreboard and button */
+  width: 50px; /* Adjust width to match scoreboard */
+  height: 40px; /* Match height of the scoreboard */
+  background: url('images/scroll-texture.jpg'); /* Textured background */
   border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 8px; /* Adjusted border radius */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Center the button horizontally */
+  align-items: center; /* Center the button vertically */
 }
 
+/* RESET BUTTON */
 .reset-wrapper button {
-  background-color: transparent;
+  background-color: transparent; /* Transparent background */
   color: white;
-  padding: 0;
-  border: none;
-  font-size: 20px;
+  padding: 0; /* No padding needed */
+  border: none; /* Remove border */
+  font-size: 20px; /* Adjust font size to fit the icon */
   font-weight: 400;
   cursor: pointer;
-  height: 100%;
-  width: 100%;
+  height: 100%; /* Match the height of the container */
+  width: 100%; /* Match the width of the container */
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: color 0.3s;
+  justify-content: center; /* Center icon inside button */
+  transition: color 0.3s; /* Only transition color on hover */
 }
 
+/* RESET BUTTON HOVER */
 .reset-wrapper button:hover {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.7);
-  color: #202020;
+  color: #202020; /* Change color on hover */
 }
 
+
+
+
+
+
+  
+/* Floating Elements Styling */
+.square {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    animation: square 10s linear infinite;
+    animation-delay: calc(-1s * var(--i));
+  }
+  
+  /* Adjust positions for centering the floating elements */
+  .square:nth-child(1) {
+    width: 100px; height: 100px;
+    top: 20%; left: 10%; /* Positioned closer to the center */
+  }
+  
+  .square:nth-child(2) {
+    width: 150px; height: 150px;
+    top: 40%; right: 10%; /* Positioned closer to the center */
+  }
+  
+  .square:nth-child(3) {
+    width: 80px; height: 80px;
+    bottom: 40%; left: 30%; /* Positioned closer to the center */
+  }
+  
+  .square:nth-child(4) {
+    width: 60px; height: 60px;
+    bottom: 30%; right: 30%; /* Positioned closer to the center */
+  }
+  
+  .square:nth-child(5) {
+    width: 90px; height: 90px;
+    top: 50%; right: 20%; /* Positioned closer to the center */
+  }
+  
+  .square:nth-child(6) {
+    width: 70px; height: 70px;
+    bottom: 20%; left: 20%; /* Positioned closer to the center */
+  }
+
+  .square:nth-child(7) {
+    width: 110px; height: 110px;
+    top: 40%; left: 60%;
+  }
+  
+  .square:nth-child(8) {
+    width: 90px; height: 90px;
+    top: 70%; right: 30%;
+  }
+  
+  .square:nth-child(9) {
+    width: 100px; height: 100px;
+    bottom: 50%; left: 50%;
+  }
+  
+  .square:nth-child(10) {
+    width: 80px; height: 80px;
+    top: 80%; right: 20%;
+  }
+  
+  @keyframes square {
+    0%, 100% {
+      transform: translateY(-20px);
+    }
+    50% {
+      transform: translateY(20px);
+    }
+  }
+
+
+
+
+/* Back Button Styling */
 .back-arrow {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: transparent;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-  text-decoration: none;
-  transition: background 0.3s, box-shadow 0.3s;
+    position: absolute;
+    top: 10px; /* Distance from the top of the container */
+    left: 10px; /* Distance from the left of the container */
+    background: transparent;
+    border-radius: 50%; /* Circular button */
+    width: 40px; /* Smaller size of the button */
+    height: 40px; /* Smaller size of the button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Adjusted shadow */
+    text-decoration: none; /* Remove underline */
+    transition: background 0.3s, box-shadow 0.3s; /* Smooth transition effects */
 }
 
 .back-arrow i {
-  font-size: 18px;
-  color: white;
-  transition: color 0.3s;
+    font-size: 18px; /* Smaller icon size */
+    color: white; /* Icon color */
+    transition: color 0.3s; /* Smooth color transition */
 }
-
+  
 .back-arrow:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
 
 .back-arrow:hover i {
-  color: #202020;
+    color: #202020; /* Change icon color on hover */
 }
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+  /* rgba(255, 255, 255, 0.3);  Semi-transparent background */

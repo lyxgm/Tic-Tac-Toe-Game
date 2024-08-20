@@ -31,6 +31,39 @@ section {
   }
 }
 
+.box {
+  position: relative;
+}
+
+.square {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  animation: square 10s linear infinite;
+  animation-delay: calc(-1s * var(--i));
+}
+
+@keyframes square {
+  0%, 100% {
+    transform: translateY(-20px);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+}
+
+/* Sizing for square elements */
+.square:nth-child(1) { width: 100px; height: 100px; top: -15px; right: -45px; }
+.square:nth-child(2) { width: 150px; height: 150px; top: 105px; left: -125px; z-index: 2; }
+.square:nth-child(3) { width: 60px; height: 60px; bottom: 85px; right: -45px; z-index: 2; }
+.square:nth-child(4) { width: 50px; height: 50px; bottom: 35px; left: -95px; }
+.square:nth-child(5) { width: 50px; height: 50px; top: -15px; left: -25px; }
+.square:nth-child(6) { width: 85px; height: 85px; top: 165px; right: -155px; z-index: 2; }
+
+/* Main container styling */
 .container {
   position: relative;
   padding: 50px;
@@ -46,6 +79,7 @@ section {
   box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
 }
 
+/* Title styling */
 .form h2 {
   color: #fff;
   letter-spacing: 2px;
@@ -55,40 +89,42 @@ section {
   font-size: 30px;
 }
 
+/* Paragraph styling */
 .form p {
   color: #fff;
   font-size: 16px;
   margin: 10px 0;
-  text-align: justify;
+  text-align: justify; /* Justify alignment */
 }
 
+/* Back arrow styling */
 .back-arrow {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 20px; /* Distance from the top of the container */
+  left: 20px; /* Distance from the left of the container */
   background: transparent;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  border-radius: 50%; /* Circular button */
+  width: 40px; /* Size of the button */
+  height: 40px; /* Size of the button */
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-  text-decoration: none;
-  transition: background 0.3s, box-shadow 0.3s;
-  color: #ffffff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Shadow for the button */
+  text-decoration: none; /* Remove underline */
+  transition: background 0.3s, box-shadow 0.3s; /* Smooth transition effects */
+  color: #ffffff; /* Default icon color */
 }
 
 .back-arrow i {
-  font-size: 18px;
-  transition: color 0.3s;
+  font-size: 18px; /* Icon size */
+  transition: color 0.3s; /* Smooth color transition */
 }
 
 .back-arrow:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.1); /* Background color on hover */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
 
 .back-arrow:hover i {
-  color: #202020;
+  color: #202020; /* Icon color on hover */
 }
