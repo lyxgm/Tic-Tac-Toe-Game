@@ -1,0 +1,55 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Finger Paint', sans-serif; 
+}
+
+:root {
+    --white: #ffffff;
+    --background: #2b2726;
+    --button-hover: #78736a;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background);
+    color: var(--white);
+}
+
+.how-to-play-container {
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+}
+
+h1 {
+    font-family: 'Finger Paint', cursive;
+    font-size: 48px;
+    color: var(--white);
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px; /* Smaller font size for text */
+    margin: 20px 0;
+    color: var(--white);
+}
+
+.back-arrow {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 36px;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.back-arrow:hover {
+    color: var(--button-hover);
+}

@@ -1,0 +1,68 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Finger Paint', sans-serif;
+}
+
+:root {
+    --white: #ffffff;
+    --background: #2b2726;
+    --button-hover: #78736a;
+    --orange: #F2C14E; /* Ensure this is defined if used */
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background);
+    color: var(--white);
+}
+
+.cover-container {
+    text-align: center;
+}
+
+.game-title {
+    font-family: 'Finger Paint', cursive;
+    font-size: 60px;
+    color: var(--white);
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.btn, .text-link {
+    display: inline-block;
+    width: 300px; 
+    padding: 15px;
+    margin: 10px;
+    font-size: 24px;
+    color: var(--white);
+    border: 2px solid var(--white); /* Set button border to white */
+    border-radius: 50px; /* Round buttons */
+    text-decoration: none;
+    text-align: center; 
+    transition: background-color 0.3s, color 0.3s;
+    background: transparent;
+}
+
+.btn {
+    background-color: transparent;
+}
+
+.btn:hover {
+    background-color: var(--button-hover);
+}
+
+.text-link:hover {
+    color: var(--button-hover);
+}

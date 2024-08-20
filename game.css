@@ -2,62 +2,114 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Finger Paint', sans-serif;
+}
+
+:root {
+    --white: #ffffff;
+    --background: #2b2726;
+    --button-hover: #78736a;
+
 }
 
 body, html {
     height: 100%;
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: var(--background);
+    color: var(--white);
+}
+
+h1 {
+    font-family: 'Finger Paint', cursive;
+    font-size: 54px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--white);
+    margin-top: 10%;
 }
 
 .container {
+    padding: 40px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 20px;
+    flex-direction: column;
 }
 
-#title {
-    font-size: 2.5rem;
-    color: black;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    text-align: center;
-}
-
+/* Game Area */
 #gameboard {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 5px;
-    margin-bottom: 20px;
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 40px;
 }
 
-.cell {
-    width: 100px;
+.box {
     height: 100px;
+    width: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
-    color: black;
-    border: 1px solid black;
-    cursor: pointer;
+    color: var(--white);
+    font-size: 120px;
+    border-right: 2px solid var(--white);
+    border-bottom: 2px solid var(--white);
+    font-family: 'Finger Paint', cursive; /* Font for X and O */
 }
 
+.box:nth-child(3n) {
+    border-right: none;
+}
+
+.box:nth-child(6) ~ .box {
+    border-bottom: none;
+}
+
+.box.winner {
+    background-color: var(--button-hover); 
+    color: var(--background); 
+    border-color: var(--button-hover); 
+}
+
+/* Restart Button */
 .controls {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    width: 100%;
+    align-items: center;
+    margin-top: 1em;
 }
 
 button {
     padding: 10px 20px;
-    border: 1px solid black;
-    background-color: white;
-    color: black;
-    font-size: 1rem;
+    border-radius: 50px; /* Round button */
+    border: 2px solid var(--white);
+    background: transparent;
+    color: var(--white);
+    font-size: 18px;
+    transition: 0.3s background-color, 0.3s transform;
+    font-weight: 600;
     cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+.back-arrow {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 36px;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.back-arrow:hover {
+    color: var(--button-hover);
 }
