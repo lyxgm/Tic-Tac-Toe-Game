@@ -1,68 +1,109 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Finger Paint', sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: 'El Messiri', sans-serif;
 }
 
-:root {
-    --white: #ffffff;
-    --background: #2b2726;
-    --button-hover: #78736a;
-    --orange: #F2C14E; /* Ensure this is defined if used */
+body {
+  background: #031323;
+  overflow: hidden;
 }
 
-body, html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--background);
-    color: var(--white);
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
 }
 
-.cover-container {
-    text-align: center;
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-.game-title {
-    font-family: 'Finger Paint', cursive;
-    font-size: 60px;
-    color: var(--white);
-    margin-bottom: 20px;
+.box {
+  position: relative;
 }
 
+
+/* Main container styling */
+.container {
+  position: relative;
+  padding: 50px;
+  width: 260px;
+  min-height: 380px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+}
+
+/* Title styling */
+.form h2 {
+  color: #fff;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-family: 'El Messiri', sans-serif;
+  font-size: 40px;
+}
+
+/* Button container styling */
 .buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
 }
 
-.btn, .text-link {
-    display: inline-block;
-    width: 300px; 
-    padding: 15px;
-    margin: 10px;
-    font-size: 24px;
-    color: var(--white);
-    border: 2px solid var(--white); /* Set button border to white */
-    border-radius: 50px; /* Round buttons */
-    text-decoration: none;
-    text-align: center; 
-    transition: background-color 0.3s, color 0.3s;
-    background: transparent;
-}
-
+/* Button styling */
 .btn {
-    background-color: transparent;
+  display: inline-block;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  margin: 10px;
+  font-size: 20px;
+  color: #ffffff;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  font-family: 'El Messiri', sans-serif;
+  backdrop-filter: blur(5px);
 }
 
 .btn:hover {
-    background-color: var(--button-hover);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #202020;
+}
+
+/* Clickable text styling */
+.text-link {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  text-decoration: none; /* Removed underline */
 }
 
 .text-link:hover {
-    color: var(--button-hover);
+  color: #202020;
 }

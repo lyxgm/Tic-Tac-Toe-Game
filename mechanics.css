@@ -1,55 +1,94 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Finger Paint', sans-serif; 
+  margin: 0;
+  padding: 0;
+  font-family: 'El Messiri', sans-serif;
 }
 
-:root {
-    --white: #ffffff;
-    --background: #2b2726;
-    --button-hover: #78736a;
+body {
+  background: #031323;
+  overflow: hidden;
 }
 
-body, html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--background);
-    color: var(--white);
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
 }
 
-.how-to-play-container {
-    max-width: 600px;
-    text-align: center;
-    position: relative;
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-h1 {
-    font-family: 'Finger Paint', cursive;
-    font-size: 48px;
-    color: var(--white);
-    margin-bottom: 20px;
+.container {
+  position: relative;
+  padding: 50px;
+  width: 260px;
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
 }
 
-p {
-    font-size: 18px; /* Smaller font size for text */
-    margin: 20px 0;
-    color: var(--white);
+.form h2 {
+  color: #fff;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  text-align: center;
+  font-size: 30px;
+}
+
+.form p {
+  color: #fff;
+  font-size: 16px;
+  margin: 10px 0;
+  text-align: justify;
 }
 
 .back-arrow {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 36px;
-    color: var(--white);
-    text-decoration: none;
-    transition: color 0.3s;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: transparent;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  transition: background 0.3s, box-shadow 0.3s;
+  color: #ffffff;
+}
+
+.back-arrow i {
+  font-size: 18px;
+  transition: color 0.3s;
 }
 
 .back-arrow:hover {
-    color: var(--button-hover);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.back-arrow:hover i {
+  color: #202020;
 }

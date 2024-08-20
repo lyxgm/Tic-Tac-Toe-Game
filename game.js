@@ -1,14 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     const playerText = document.getElementById('playerText');
     const restartBtn = document.getElementById('reset');
+    const resetScoresBtn = document.getElementById('resetScores');
     const boxes = Array.from(document.getElementsByClassName('box'));
-    const winnerIndicator = getComputedStyle(document.body).getPropertyValue('--button-hover');
+    const scoreX = document.getElementById('scoreX');
+    const scoreO = document.getElementById('scoreO');
+    const scoreTie = document.getElementById('scoreTie');
+    const winnerIndicator = getComputedStyle(document.body).getPropertyValue('--winning-blocks');
 
     const O_TEXT = "O";
     const X_TEXT = "X";
     let currentPlayer = X_TEXT;
     let spaces = Array(9).fill(null);
     let isGameActive = true;
+    let scores = { X: 0, O: 0, tie: 0 };
 
     const winningCombos = [
         [0, 1, 2],
@@ -40,12 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (winningBlocks) {
                 isGameActive = false;
                 playerText.innerHTML = `Player ${currentPlayer} has won!`;
-                winningBlocks.forEach(box => boxes[box].classList.add('winner'));
+                winningBlocks.forEach(box => boxes[box].style.backgroundColor = winnerIndicator);
+                updateScores(currentPlayer);
                 return;
             }
 
             if (!spaces.includes(null)) {
                 playerText.innerHTML = 'It\'s a Tie!';
+                updateScores('tie');
                 return;
             }
 
@@ -56,6 +63,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 botMove();
             }
         }
+    }
+
+    function updateScores(result) {
+        if (result === 'X' || result === 'O') {
+            scores[result]++;
+        } else if (result === 'tie') {
+            scores.tie++;
+        }
+        scoreX.innerText = `Player X: ${scores.X}`;
+        scoreO.innerText = `Player O: ${scores.O}`;
+        scoreTie.innerText = `Ties: ${scores.tie}`;
     }
 
     function botMove() {
@@ -137,12 +155,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (winningBlocks) {
             isGameActive = false;
             playerText.innerHTML = `Player ${currentPlayer} has won!`;
-            winningBlocks.forEach(box => boxes[box].classList.add('winner'));
+            winningBlocks.forEach(box => boxes[box].style.backgroundColor = winnerIndicator);
+            updateScores(currentPlayer);
             return;
         }
 
         if (!spaces.includes(null)) {
             playerText.innerHTML = 'It\'s a Tie!';
+            updateScores('tie');
             return;
         }
 
@@ -170,13 +190,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         boxes.forEach(box => {
             box.innerText = '';
-            box.classList.remove('winner'); // Remove winner class on restart
+            box.style.backgroundColor = '';
         });
 
         currentPlayer = X_TEXT;
         updatePlayerText();
     }
 
+    function resetScores() {
+        scores = { X: 0, O: 0, tie: 0 };
+        scoreX.innerText = `Player X: ${scores.X}`;
+        scoreO.innerText = `Player O: ${scores.O}`;
+        scoreTie.innerText = `Ties: ${scores.tie}`;
+    }
+
     restartBtn.addEventListener('click', restart);
+    resetScoresBtn.addEventListener('click', resetScores);
     startGame();
 });
+
+
+
+
+
+
+
+
