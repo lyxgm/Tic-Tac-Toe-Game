@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Get references to HTML elements
     const playerText = document.getElementById('playerText');
     const restartBtn = document.getElementById('reset');
     const resetScoresBtn = document.getElementById('resetScores');
@@ -8,13 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreTie = document.getElementById('scoreTie');
     const winnerIndicator = getComputedStyle(document.body).getPropertyValue('--winning-blocks');
 
+    // Constants for player symbols
     const O_TEXT = "O";
     const X_TEXT = "X";
+
+    // Game state variables
     let currentPlayer = X_TEXT;
     let spaces = Array(9).fill(null);
     let isGameActive = true;
     let scores = { X: 0, O: 0, tie: 0 };
+    let moveHistory = [];
 
+    // Winning combinations for Tic Tac Toe
     const winningCombos = [
         [0, 1, 2],
         [3, 4, 5],
@@ -26,45 +32,104 @@ document.addEventListener('DOMContentLoaded', () => {
         [2, 4, 6]
     ];
 
+    // Get the game mode from the URL query parameters
     const queryParams = new URLSearchParams(window.location.search);
-    const mode = queryParams.get('mode'); // Check the game mode
+    const mode = queryParams.get('mode');
 
+    // Initialize the game based on the mode
     const startGame = () => {
         boxes.forEach(box => box.addEventListener('click', boxClicked));
         updatePlayerText();
+        if (mode === 'endless') {
+            initializeEndlessMode();
+        }
     };
 
+    // Handle clicks on the game board
     function boxClicked(e) {
         const id = e.target.id;
 
-        if (!spaces[id] && isGameActive) {
-            spaces[id] = currentPlayer;
-            e.target.innerText = currentPlayer;
+        if (mode === 'endless') {
+            handleEndlessMode(id, e.target);
+        } else {
+            // Normal Player vs. Player or Player vs. Bot mode
+            if (!spaces[id] && isGameActive) {
+                spaces[id] = currentPlayer;
+                e.target.innerText = currentPlayer;
 
-            const winningBlocks = playerHasWon();
-            if (winningBlocks) {
-                isGameActive = false;
-                playerText.innerHTML = `Player ${currentPlayer} has won!`;
-                winningBlocks.forEach(box => boxes[box].style.backgroundColor = winnerIndicator);
-                updateScores(currentPlayer);
-                return;
-            }
+                // Check for a win
+                const winningBlocks = playerHasWon();
+                if (winningBlocks) {
+                    isGameActive = false;
+                    playerText.innerHTML = `Player ${currentPlayer} has won!`;
+                    winningBlocks.forEach(box => boxes[box].style.backgroundColor = winnerIndicator);
+                    updateScores(currentPlayer);
+                    return;
+                }
 
-            if (!spaces.includes(null)) {
-                playerText.innerHTML = 'It\'s a Tie!';
-                updateScores('tie');
-                return;
-            }
+                // Check for a tie
+                if (!spaces.includes(null)) {
+                    playerText.innerHTML = 'It\'s a Tie!';
+                    updateScores('tie');
+                    return;
+                }
 
-            currentPlayer = currentPlayer === X_TEXT ? O_TEXT : X_TEXT;
-            updatePlayerText();
+                // Switch players
+                currentPlayer = currentPlayer === X_TEXT ? O_TEXT : X_TEXT;
+                updatePlayerText();
 
-            if (mode === 'vs-bot' && currentPlayer === O_TEXT) {
-                botMove();
+                // Bot move if in Player vs. Bot mode
+                if (mode === 'vs-bot' && currentPlayer === O_TEXT) {
+                    botMove();
+                }
             }
         }
     }
 
+    // Handle moves in Endless mode
+    function handleEndlessMode(id, box) {
+        if (spaces[id] !== null) return;
+
+        spaces[id] = currentPlayer;
+        moveHistory.push(id);
+        box.innerText = currentPlayer;
+
+        // Check for a win
+        const winningBlocks = playerHasWon();
+        if (winningBlocks) {
+            isGameActive = false;
+            playerText.innerHTML = `Player ${currentPlayer} wins!`;
+            winningBlocks.forEach(box => boxes[box].style.backgroundColor = winnerIndicator);
+            updateScores(currentPlayer);
+            return;
+        }
+
+        // Remove oldest move if the board is full
+        if (moveHistory.length === 9) {
+            removeOldestMove();
+        }
+
+        // Check for a tie after removing the oldest move
+        if (!spaces.includes(null)) {
+            playerText.innerHTML = 'It\'s a Tie!';
+            updateScores('tie');
+            resetGame();
+            return;
+        }
+
+        // Switch players
+        currentPlayer = currentPlayer === X_TEXT ? O_TEXT : X_TEXT;
+        updatePlayerText();
+    }
+
+    // Remove the oldest move in Endless mode
+    function removeOldestMove() {
+        const oldestMoveIndex = moveHistory.shift();
+        spaces[oldestMoveIndex] = null;
+        document.querySelector(`.box[id="${oldestMoveIndex}"]`).innerText = '';
+    }
+
+    // Update the score display
     function updateScores(result) {
         if (result === 'X' || result === 'O') {
             scores[result]++;
@@ -76,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreTie.innerText = `Ties: ${scores.tie}`;
     }
 
+    // Make a move for the bot in Player vs. Bot mode
     function botMove() {
         const bestMove = findBestMove();
         if (bestMove !== null) {
@@ -83,8 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Find the best move for the bot using the minimax algorithm
     function findBestMove() {
-        const depthLimit = 3; // Limit the depth to make it less challenging
+        const depthLimit = 3;
         let bestVal = -Infinity;
         let bestMove = null;
 
@@ -103,13 +170,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return bestMove;
     }
 
+    // Minimax algorithm to determine the best move for the bot
     function minimax(board, depth, isMaximizing, depthLimit) {
         const scores = { 'X': -10, 'O': 10, 'tie': 0 };
 
         const result = checkWinner();
         if (result !== null) return scores[result];
 
-        if (depth >= depthLimit) return scores['tie']; // Limit the depth of the search
+        if (depth >= depthLimit) return scores['tie'];
 
         if (isMaximizing) {
             let best = -Infinity;
@@ -134,6 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Check if there is a winner
     function checkWinner() {
         for (const condition of winningCombos) {
             const [a, b, c] = condition;
@@ -147,10 +216,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     }
 
+    // Make a move for the current player
     function makeMove(index) {
         spaces[index] = currentPlayer;
         boxes[index].innerText = currentPlayer;
 
+        // Check for a win
         const winningBlocks = playerHasWon();
         if (winningBlocks) {
             isGameActive = false;
@@ -160,20 +231,35 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Check for a tie
         if (!spaces.includes(null)) {
             playerText.innerHTML = 'It\'s a Tie!';
             updateScores('tie');
             return;
         }
 
+        // Switch players
         currentPlayer = X_TEXT;
         updatePlayerText();
     }
 
-    function updatePlayerText() {
-        playerText.innerHTML = `Player ${currentPlayer}'s turn`;
+    // Update the player text display
+function updatePlayerText() {
+    let modeText = '';
+
+    // Set modeText based on the game mode
+    if (mode === 'endless') {
+        modeText = 'Endless Mode';
+    } else if (mode === 'vs-bot') {
+        modeText = 'Player vs Bot';
+    } else if (mode === 'vs-player') {
+        modeText = 'Player vs Player';
     }
 
+    playerText.innerHTML = `${modeText} - Player ${currentPlayer}'s turn`;
+}
+
+    // Check if a player has won
     function playerHasWon() {
         for (const condition of winningCombos) {
             const [a, b, c] = condition;
@@ -184,35 +270,45 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     }
 
+    // Restart the game
     function restart() {
-        spaces.fill(null);
-        isGameActive = true;
+        if (mode === 'endless') {
+            resetGame();
+        } else {
+            spaces.fill(null);
+            isGameActive = true;
 
+            boxes.forEach(box => {
+                box.innerText = '';
+                box.style.backgroundColor = '';
+            });
+            currentPlayer = X_TEXT;
+            updatePlayerText();
+        }
+    }
+
+    // Reset the game
+    function resetGame() {
+        spaces.fill(null);
+        moveHistory = [];
+        isGameActive = true;
         boxes.forEach(box => {
             box.innerText = '';
             box.style.backgroundColor = '';
         });
-
         currentPlayer = X_TEXT;
         updatePlayerText();
     }
 
+    // Reset scores
     function resetScores() {
         scores = { X: 0, O: 0, tie: 0 };
-        scoreX.innerText = `Player X: ${scores.X}`;
-        scoreO.innerText = `Player O: ${scores.O}`;
-        scoreTie.innerText = `Ties: ${scores.tie}`;
+        updateScores();
     }
 
+    // Event listeners for buttons
     restartBtn.addEventListener('click', restart);
     resetScoresBtn.addEventListener('click', resetScores);
+
     startGame();
 });
-
-
-
-
-
-
-
-
