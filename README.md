@@ -7,7 +7,7 @@ Whether you want to play with a friend, challenge an AI bot, or dive into a uniq
 
 ### Game Modes
 - Player vs. Player: Enjoy the classic Tic Tac Toe experience where two players compete head-to-head.
-- Player vs. Bot: Face off against an AI opponent with adjustable difficulty levels. The hardest difficulty uses a Minimax algorithm to enhance AI decision-making.
+- Player vs. Bot: Challenge an AI opponent that uses a Minimax algorithm to enhance decision-making.
 - Endless Mode: Adds a twist by removing the oldest marks if the game ends in a draw, ensuring the game continues until a winner is determined.
 
 ### Game Mechanics
