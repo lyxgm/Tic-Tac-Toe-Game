@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePlayerText();
         if (mode === 'endless') {
             initializeEndlessMode();
+            scoreTie.style.display = 'none'; // Hide tie score for endless mode
+        } else {
+            scoreTie.style.display = 'block'; // Show tie score for other modes
         }
     };
 
@@ -86,14 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Handle moves in Endless mode
+    // Handling Endless Mode Moves
     function handleEndlessMode(id, box) {
         if (spaces[id] !== null) return;
-
+    
         spaces[id] = currentPlayer;
         moveHistory.push(id);
         box.innerText = currentPlayer;
-
+    
         // Check for a win
         const winningBlocks = playerHasWon();
         if (winningBlocks) {
@@ -103,12 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
             updateScores(currentPlayer);
             return;
         }
-
+    
         // Remove oldest move if the board is full
         if (moveHistory.length === 9) {
             removeOldestMove();
         }
-
+    
         // Check for a tie after removing the oldest move
         if (!spaces.includes(null)) {
             playerText.innerHTML = 'It\'s a Tie!';
@@ -116,11 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
             resetGame();
             return;
         }
-
+    
         // Switch players
         currentPlayer = currentPlayer === X_TEXT ? O_TEXT : X_TEXT;
         updatePlayerText();
     }
+    
 
     // Remove the oldest move in Endless mode
     function removeOldestMove() {
@@ -128,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         spaces[oldestMoveIndex] = null;
         document.querySelector(`.box[id="${oldestMoveIndex}"]`).innerText = '';
     }
+    
 
     // Update the score display
     function updateScores(result) {
@@ -138,7 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         scoreX.innerText = `Player X: ${scores.X}`;
         scoreO.innerText = `Player O: ${scores.O}`;
-        scoreTie.innerText = `Ties: ${scores.tie}`;
+        if (mode !== 'endless') {
+            scoreTie.innerText = `Ties: ${scores.tie}`;
+        }
     }
 
     // Make a move for the bot in Player vs. Bot mode
@@ -298,6 +305,13 @@ function updatePlayerText() {
         });
         currentPlayer = X_TEXT;
         updatePlayerText();
+        
+        // Ensure tie score visibility matches the mode after reset
+        if (mode === 'endless') {
+            scoreTie.style.display = 'none';
+        } else {
+            scoreTie.style.display = 'block';
+        }
     }
 
     // Reset scores
